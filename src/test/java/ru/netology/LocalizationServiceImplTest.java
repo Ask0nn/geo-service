@@ -1,5 +1,6 @@
 package ru.netology;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import ru.netology.entity.Country;
@@ -8,22 +9,28 @@ import ru.netology.i18n.LocalizationServiceImpl;
 public class LocalizationServiceImplTest {
 
     @Test
-    public void testLocale(){
-        String ru = "Добро пожаловать";
-        String en = "Welcome";
-
+    public void testLocaleRu(){
+        String expected = "Добро пожаловать";
         LocalizationServiceImpl localizationService = Mockito.mock(LocalizationServiceImpl.class);
 
         Mockito.when(localizationService.locale(Country.RUSSIA))
-                .thenReturn(ru);
+                .thenReturn("Добро пожаловать");
 
-        Mockito.when(localizationService.locale(Country.BRAZIL))
-                .thenReturn(en);
+        String actual = localizationService.locale(Country.RUSSIA);
+
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testLocaleEn(){
+        String expected = "Welcome";
+        LocalizationServiceImpl localizationService = Mockito.mock(LocalizationServiceImpl.class);
 
         Mockito.when(localizationService.locale(Country.USA))
-                .thenReturn(en);
+                .thenReturn("Welcome");
 
-        Mockito.when(localizationService.locale(Country.GERMANY))
-                .thenReturn(en);
+        String actual = localizationService.locale(Country.USA);
+
+        Assertions.assertEquals(expected, actual);
     }
 }
